@@ -14,8 +14,6 @@ const { activeIndex } = toRefs(props);
 
 const selectIndex = (target) => {
   $bus.$emit('selectIndex', target);
-  selectedIndex.value = target;
-   
 }
 
 const setScrollClasses = (inView) => {
