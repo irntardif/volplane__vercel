@@ -2,7 +2,9 @@ import { siteQuery } from './queries'
 
 export default defineNuxtConfig({
   modules: ['@vueuse/nuxt', 'nuxt-kql', '@nuxtjs/tailwindcss', 'nuxt-swiper', 'nuxt-mapbox'],
-
+  mapbox: {
+    accessToken: 'pk.eyJ1IjoiYm9uam91cnRhcmRpZiIsImEiOiJjbG1lbzYwaDEyMjc2M2NvNTJwYXh6eXN2In0.jloyJlQj0KNjKhfYEDQNXQ'
+  },
   runtimeConfig: {
     public: {
       siteUrl: 'https://www.vol-plane.com',
