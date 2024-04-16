@@ -1,15 +1,14 @@
 <script lang="ts">
-/* eslint-disable import/first */
+</script>
+
+<script setup lang="ts">
+import type { KirbyBlock } from '#nuxt-kql'
 export interface KirbyImage {
   id: string
   uuid: string
   url: string
   alt: string | null
 }
-</script>
-
-<script setup lang="ts">
-import type { KirbyBlock } from '#nuxt-kql'
 
 const props = defineProps<{
   block: KirbyBlock<'image'>
@@ -30,7 +29,7 @@ if (ratio !== 'auto') {
 
 // Auto sizes for `srcset` attribute if used
 const figure = ref<HTMLElement | undefined>()
-const { width } = useElementSize(figure)
+
 </script>
 
 <template>
@@ -42,18 +41,28 @@ const { width } = useElementSize(figure)
       :class="[ratio === 'auto' ? 'auto' : 'img']"
       :style="`--w: ${size.w}; --h: ${size.h};`"
     >
+
       <img
         v-if="block.content.location === 'web'"
         :src="block.content.src"
         :alt="block.content.alt"
       />
+
       <KirbyUuidResolver
         v-else
         v-slot="{ item: image }"
         :uuid="props.block.content.image?.[0]"
         :collection="images"
       >
-        <img :src="image.url" :sizes="`${width}px`" :alt="image.alt" />
+        <img
+:src="image?.url" 
+          :alt="image?.alt" 
+          :width="image?.width"
+          :height="image?.height"
+          :srcset="image?.srcset" 
+          sizes="(min-width: 1024px) 50vw,
+                (min-width: 600px) 25vw,
+                100vw" />
       </KirbyUuidResolver>
     </component>
 

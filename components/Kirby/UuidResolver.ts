@@ -16,12 +16,8 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    if (!Array.isArray(props.collection)) {
-      throw new TypeError('Invalid prop: "collection" must be an array.')
-    }
-
     const data = reactive({
-      item: props.collection.find((item) => item.uuid === props.uuid),
+      item: resolveUuid(props.collection, props.uuid),
     })
 
     return () => {
@@ -29,3 +25,4 @@ export default defineComponent({
     }
   },
 })
+

@@ -7,5 +7,18 @@ defineProps<{
 </script>
 
 <template>
-  <div v-html="block.content.text" />
+  <div class="text" v-html="block.content.text" />
 </template>
+
+<style>
+
+.layout .text + h3{
+  margin-top:.5rem;
+}
+
+@media screen and (min-width:1024px){
+  layout .text + h3{
+    margin-top:2rem;
+  }
+}
+</style>

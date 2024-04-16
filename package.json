@@ -15,16 +15,23 @@
     "test:types": "vue-tsc --noEmit",
     "prepare": "simple-git-hooks && nuxi prepare"
   },
+  "dependencies": {
+    "mitt": "^3.0.1",
+    "nuxt-swiper": "^1.2.2"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.13.3",
+    "@nuxtjs/tailwindcss": "^6.11.4",
     "@sindresorhus/slugify": "^2.2.1",
     "@types/node": "^20.12.7",
     "@vueuse/nuxt": "^10.9.0",
     "eslint": "^8.57.0",
     "lint-staged": "^15.2.2",
+    "mapbox-gl": "^3.3.0",
     "medium-zoom": "^1.1.0",
     "nuxt": "^3.11.2",
     "nuxt-kql": "^1.4.14",
+    "nuxt-mapbox": "^1.5.9",
     "prettier": "^3.2.5",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.4.5",

@@ -48,7 +48,8 @@ setPage(page)
                   --h: ${image.height};
                 `"
             >
-              <ElementMediumZoom
+              <img
+                v-zoom
                 :src="image.resized.url"
                 :data-zoom-src="image.url"
                 :alt="image.alt"

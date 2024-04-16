@@ -1,46 +1,54 @@
-* {
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Noah';
+  src: url('../fonts/Noah-Regular.woff2') format('woff2'),
+       url('../fonts/Noah-Regular.woff') format('woff'),
+       url('../fonts/Noah-Regular.ttf') format('truetype'),
+       url('../fonts/Noah-Regular.svg#Noah-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-:root {
-  --padding: 1.5rem;
-  --color-black: #000;
-  --color-white: #fff;
-  --color-grey: #777;
-  --color-light: #efefef;
-  --color-text: var(--color-black);
-  --color-text-grey: var(--color-grey);
-  --color-background: var(--color-white);
-  --color-code-light-grey: #cacbd1;
-  --color-code-comment: #a9aaad;
-  --color-code-white: #c5c9c6;
-  --color-code-red: #d16464;
-  --color-code-orange: #de935f;
-  --color-code-yellow: #f0c674;
-  --color-code-green: #a7bd68;
-  --color-code-aqua: #8abeb7;
-  --color-code-blue: #7e9abf;
-  --color-code-purple: #b294bb;
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-    Courier, monospace;
+@font-face {
+    font-family: 'Noah';
+    src: url('../fonts/Noah-Bold.woff2') format('woff2'),
+        url('../fonts/Noah-Bold.woff') format('woff'),
+        url('../fonts/Noah-Bold.ttf') format('truetype'),
+        url('../fonts/Noah-Bold.svg#Noah-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noah';
+    src: url('../fonts/Noah-RegularItalic.woff2') format('woff2'),
+        url('../fonts/Noah-RegularItalic.woff') format('woff'),
+        url('../fonts/Noah-RegularItalic.ttf') format('truetype'),
+        url('../fonts/Noah-RegularItalic.svg#Noah-RegularItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@layer base {
+  :root {
+    --color-vp-main: 255, 243, 74;
+    --color-vp-secondary: 21, 182, 236;
+  }
 }
 
 html {
-  font-family: var(--font-family-sans);
-  color: var(--color-text);
-  background: var(--color-background);
+  font-family: 'Noah';
+  color: #000;
+  background: #fff;
 }
 img {
   width: 100%;
-}
-body {
-  padding: var(--padding);
-  max-width: 70rem;
-  margin: 0 auto;
 }
 li {
   list-style: none;
@@ -65,61 +73,8 @@ small {
   color: var(--color-text-grey);
 }
 
-.bg-light {
-  background-color: var(--color-light);
-}
-.color-grey {
-  color: var(--color-text-grey);
-}
-
-.header {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-right: -1rem;
-  margin-left: -1rem;
-  margin-bottom: 6rem;
-}
-
-.logo {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.social {
-  display: flex;
-  padding: 0 0.5rem;
-}
-.social a {
-  padding: 1rem 0.5rem;
-}
-
-.section {
-  padding: 3rem 0;
-}
-
-.grid {
-  --columns: 12;
-  --gutter: 3rem;
-  display: grid;
-  grid-gap: var(--gutter);
-  grid-template-columns: 1fr;
-}
 .grid > .column {
   margin-bottom: var(--gutter);
-}
-
-.autogrid {
-  --gutter: 3rem;
-  --min: 10rem;
-  display: grid;
-  grid-gap: var(--gutter);
-  grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
-  grid-auto-flow: dense;
 }
 
 h1,
@@ -133,145 +88,109 @@ h6 {
   line-height: inherit;
 }
 
-.text {
-  line-height: 1.5em;
-}
-.text a {
-  text-decoration: underline;
-}
-.text :first-child {
-  margin-top: 0;
-}
-.text :last-child {
-  margin-bottom: 0;
-}
-.text p,
-.text ul,
-.text ol {
-  margin-bottom: 1.5rem;
-}
-.text ul,
-.text ol {
-  margin-left: 1rem;
-}
-.text ul p,
-.text ol p {
-  margin-bottom: 0;
-}
-.text ul > li {
-  list-style: disc;
-}
-.text ol > li {
-  list-style: decimal;
-}
-.text ul ol,
-.text ul ul,
-.text ol ul,
-.text ol ol {
-  margin-bottom: 0;
-}
-.text h1,
-.h1,
-.intro {
-  font-size: 2rem;
-  margin-bottom: 3rem;
-  line-height: 1.25em;
-}
-.text h2,
-.h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-}
-.text h3,
-.h3 {
-  font-weight: 600;
-}
-.text .codeblock {
-  display: grid;
-}
-.text code {
-  font-family: var(--font-family-mono);
-  font-size: 1em;
-  background: var(--color-light);
-  padding: 0 0.5rem;
-  display: inline-block;
-  color: var(--color-black);
-}
-.text pre {
-  margin: 3rem 0;
-  background: var(--color-black);
-  color: var(--color-white);
-  padding: 1.5rem;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  line-height: 1.5rem;
-}
-.text pre code {
-  padding: 0;
-  background: none;
-  color: inherit;
-}
-.text hr {
-  margin: 6rem 0;
-}
-.text dt {
-  font-weight: 600;
-}
-.text blockquote {
-  font-size: 1.25rem;
-  line-height: 1.325em;
-  border-left: 2px solid var(--color-black);
-  padding-left: 1rem;
-  margin: 3rem 0;
-  max-width: 25rem;
-}
-.text blockquote footer {
-  font-size: 0.875rem;
-  font-style: italic;
-}
-.text figure {
-  margin: 3rem 0;
-}
-.text figcaption {
-  padding-top: 0.75rem;
-  color: var(--color-text-grey);
+.fancy-title{
+  position:relative;
 }
 
-hr {
-  border: 0;
-  background: currentColor;
-  height: 2px;
-  width: 1.5rem;
-  margin: 3rem auto;
+.fancy-title:after{
+  content:"";
+  background: url(../icons/eclair.png) no-repeat center;
+  background-size:contain;
+  width:60px;
+  height:60px;
+  position: absolute;
+  z-index:25;
 }
 
-.align-center {
-  text-align: center;
+
+@media screen and (min-width:1024px){
+  .fancy-title:after{
+    width:120px;
+    height:120px;
+    top:-50%;
+    right:-100px;
+  }
 }
 
-.intro {
-  max-width: 40rem;
-}
-.intro *:not(:last-child) {
-  margin-bottom: 1em;
+
+.fancy-title.fancy-dark:after{
+  background: url(../icons/eclair-dark.png) no-repeat center;
+  background-size:contain;
 }
 
-.cta {
-  background: var(--color-black);
-  color: var(--color-white);
-  display: inline-flex;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border: 4px solid var(--color-white);
-  outline: 2px solid var(--color-black);
+.h-cover{
+  height: 50vh;
 }
 
-.box {
-  background: var(--color-light);
-  padding: 1.5rem;
-  border: 4px solid var(--color-white);
-  outline: 2px solid var(--color-light);
+@media screen and (min-width:1024px){
+  .h-cover{
+    height: calc(66vh - 80px);
+  }
+}
+
+
+.button-shadow{
+  position:relative;
+  box-shadow: 10px 10px #000;
+  transition: all .25s ease-out;
+}
+
+.button-shadow:hover{
+  -webkit-transform: translate(5px, 5px);
+  transform: translate(5px, 5px);
+  box-shadow: 5px 5px #000;
+}
+
+.button-shadow--alt{
+  box-shadow: 10px 10px rgb(var(--color-vp-main));
+}
+
+.button-shadow--alt:hover{
+  box-shadow: 5px 5px rgb(var(--color-vp-main));
+}
+
+.animate-slide{
+  animation: sliding 30s linear infinite alternate;
+}
+
+.animate-rotate{
+  animation: rotate 30s linear infinite;
+}
+
+@-webkit-keyframes sliding{
+  0%{
+    -webkit-transform: translateX(0);
+  }
+  100%{
+    -webkit-transform: translateX(-60%);
+  }
+}
+
+@keyframes sliding{
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(-60%);
+  }
+}
+
+@-webkit-keyframes rotate{
+  0%{
+    -webkit-transform: rotate(0);
+  }
+  100%{
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate{
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
 }
 
 .video,
@@ -304,30 +223,115 @@ hr {
   line-height: 1.5em;
 }
 
-.margin-s {
-  margin-bottom: 0.75rem;
+.text p + p{
+  margin-top:1rem;
 }
-.margin-m {
-  margin-bottom: 1.5rem;
+
+.icon{
+  display: block;
+  width:20px;
+  height:20px;
+  margin-right:10px;
 }
-.margin-l {
-  margin-bottom: 3rem;
+
+.icon_facebook{
+  background: url(../icons/social/facebook.svg) no-repeat center;
+  background-size:contain;
 }
-.margin-xl {
-  margin-bottom: 4.5rem;
+
+.icon_instagram{
+  background: url(../icons/social/instagram.svg) no-repeat center;
+  background-size:contain;
 }
-.margin-xxl {
-  margin-bottom: 6rem;
+
+.icon_vimeo{
+  background: url(../icons/social/vimeo.svg) no-repeat center;
+  background-size:contain;
 }
+
+.pulse{
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse{
+  0%{
+    transform:translateX(0);
+  }
+  100%{
+    transform:translateX(10px);
+  }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.4s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%)
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity:0;
+  transform: translateY(35px)
+}
+
+.swiper-button-prev,
+.swiper-button-next{
+  width:30px!important;
+  height:30px!important;
+}
+
+.swiper-button-prev{
+  left:15px!important;
+}
+
+.swiper-button-next{
+  right:15px!important;
+}
+
+.swiper-button-next:after{
+  content:""!important;
+  background:url(~/assets/icons/next.png) no-repeat center;
+  background-size: contain;
+  width:100%;
+  height:100%;
+}
+
+.swiper-button-prev:after{
+  content:""!important;
+  background:url(~/assets/icons/prev.png) no-repeat center;
+  background-size: contain;
+  width:100%;
+  height:100%;
+}
+
+@media screen and (min-width:1024px){
+  .swiper-button-prev,
+  .swiper-button-next{
+    width:50px!important;
+    height:50px!important;
+  }
+
+  .swiper-button-prev{
+    left:25px!important;
+  }
+
+  .swiper-button-next{
+    right:25px!important;
+  }
+}
+
 
 @media screen and (min-width: 60rem) {
-  body {
-    --padding: 3rem;
-  }
 
-  .grid {
-    grid-template-columns: repeat(12, 1fr);
-  }
   .grid > .column {
     grid-column: span var(--columns);
   }

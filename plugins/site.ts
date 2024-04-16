@@ -1,6 +1,7 @@
 import type { FetchError } from 'ofetch'
 import { siteQuery } from '~/queries'
 
+
 export default defineNuxtPlugin(async () => {
   const site = useSite()
 

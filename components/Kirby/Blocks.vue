@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { ComponentPublicInstance } from 'vue'
 import {
+  LazyKirbyBlockArticles,
+  LazyKirbyBlockButton,
   LazyKirbyBlockHeading,
   LazyKirbyBlockImage,
   LazyKirbyBlockLine,
   LazyKirbyBlockList,
   LazyKirbyBlockQuote,
+  LazyKirbyBlockSpace,
   LazyKirbyBlockText,
 } from '#components'
 import type { KirbyBlock } from '#nuxt-kql'
@@ -14,14 +16,17 @@ defineProps<{
   blocks: KirbyBlock<string>[]
 }>()
 
-type ComponentConstructor = new (...args: any[]) => ComponentPublicInstance
+type Component = abstract new (...args: any) => any
 
-const blockComponents: Record<string, ComponentConstructor> = {
+const blockComponents: Partial<Record<string, Component>> = {
+  articles: LazyKirbyBlockArticles,
+  button: LazyKirbyBlockButton,
   heading: LazyKirbyBlockHeading,
   image: LazyKirbyBlockImage,
   line: LazyKirbyBlockLine,
   list: LazyKirbyBlockList,
   quote: LazyKirbyBlockQuote,
+  space: LazyKirbyBlockSpace,
   text: LazyKirbyBlockText,
 }
 </script>

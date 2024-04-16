@@ -1,5 +1,5 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  const { vueApp } = nuxtApp
+ const { vueApp } = nuxtApp
 
   /**
    * Directive to let the Vue Router handle internal links,
@@ -17,21 +17,40 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
   })
 
+  function scrollToSmoothly (pos, time) {
+    const currentPos = window.pageYOffset;
+    let start = null;
+    if(time == null) time = 500;
+    pos += pos; time += time;
+    window.requestAnimationFrame(function step(currentTime) {
+        start = !start ? currentTime : start;
+        const progress = currentTime - start;
+        if (currentPos < pos) {
+            window.scrollTo(0, ((pos - currentPos) * progress / time) + currentPos);
+        } else {
+            window.scrollTo(0, currentPos - ((currentPos - pos) * progress / time));
+        }
+        if (progress < time) {
+            window.requestAnimationFrame(step);
+        } else {
+            window.scrollTo(0, pos);
+        }
+    });
+}
+
   function navigate() {
     if (window.location.hash) {
-      document
-        .querySelector(window.location.hash)
-        ?.scrollIntoView({ behavior: 'smooth' })
+      const target = document.querySelector(window.location.hash);
+      scrollToSmoothly(target.offsetTop - 180, 400)
     }
   }
 
   function handleAnchors(
     event: MouseEvent & {
       target: HTMLElement
-    },
+    }
   ) {
     const link = event.target.closest('a')
-
     if (
       !event.defaultPrevented &&
       link &&

@@ -15,7 +15,7 @@ export const notesQuery: KirbyQuerySchema = {
         title: true,
         tags: 'page.tags.split(",")',
         text: 'page.text.toBlocks.excerpt(280)',
-        published: 'page.date.toDate',
+        published: 'page.date.toDate("c")',
         cover: {
           query: 'page.content.cover.toFile',
           select: ['id', 'url'],

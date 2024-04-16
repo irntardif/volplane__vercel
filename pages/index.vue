@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import {onMounted, ref} from 'vue';
+
+const route = useRoute();
+const site = useSite();
+
 const { data } = await useKql({
-  query: 'page("home")',
+  query: `page("home")`,
   select: {
     id: true,
     title: true,
@@ -8,139 +13,234 @@ const { data } = await useKql({
     // description: true,
     headline: true,
     subheadline: true,
+    categories: 'site.find(\'blog\').categories.yaml',
+    courses: {
+      query: 'page.courses.toPages',
+      select: {
+        id: true,
+        title: true,
+        category: true,
+        published: 'page.date?.toDate("EEEE d MMMM YYYY")',
+        cover: {
+          query: 'page.content.cover?.toFile',
+          select: {
+            srcset: true,
+            width: true,
+            height: true,
+            thumb: true,
+            resized: {
+              query: 'file.resize(900, 900)',
+              select: ['url'],
+            },
+            alt: true,
+          },
+        }
+      }
+    },
+    blogFocus: {
+      query: 'page.blogFocus.toPages',
+      select: {
+        id: true,
+        title: true,
+        category: true,
+        published: 'page.date?.toDate("EEEE d MMMM YYYY")',
+        cover: {
+          query: 'page.content.cover?.toFile',
+          select: {
+            srcset: true,
+            width: true,
+            height: true,
+            thumb: true,
+            resized: {
+              query: 'file.resize(900, 900)',
+              select: ['url'],
+            },
+            alt: true,
+          },
+        }
+      }
+    },
+    showFocus: {
+      query: 'page.showFocus.toPages',
+      select: {
+        id: true,
+        title: true,
+        tags: true,
+        onTour: true,
+        cover: {
+          query: 'page.content.cover.toFile',
+          select: {
+            srcset: true,
+            width: true,
+            height: true,
+            thumb: true,
+            resized: {
+              query: 'file.resize(900, 900)',
+              select: ['url'],
+            },
+            alt: true,
+          },
+        },
+      },
+    },
   },
 })
+
+// const getCurrentMonth = () => {
+//   const date = new Date();
+//   const month = date.toLocaleString("default", { month: "long" });
+//   return month.charAt(0).toUpperCase() + month.slice(1);
+// }
 
 // Set the current page data for the global page context
 const page = data.value?.result
 setPage(page)
 
-const { data: photographyData } = await useKql({
-  query: 'page("photography").children.listed',
-  select: {
-    id: true,
-    title: true,
-    cover: {
-      query: 'page.content.cover.toFile',
-      select: {
-        resized: {
-          query: 'file.resize(1024, 1024)',
-          select: ['url'],
-        },
-        alt: true,
-      },
-    },
-    image: {
-      query: 'page.images.first',
-      select: {
-        resized: {
-          query: 'file.resize(1024, 1024)',
-          select: ['url'],
-        },
-        alt: true,
-      },
-    },
-  },
+// const {data : lastShowFetch } = await useKql({
+//   query: 'page("company").children.children.listed.first',
+//   select: {
+//     id: true,
+//     title: true,
+//     tags: true,
+//     onTour: true,
+//     cover: {
+//       query: 'page.content.cover.toFile',
+//       select: {
+//         srcset: true,
+//         width: true,
+//         height: true,
+//         thumb: true,
+//         resized: {
+//           query: 'file.resize(900, 900)',
+//           select: ['url'],
+//         },
+//         alt: true,
+//       },
+//     },
+//   },
+// })
+
+//const lastShow = lastShowFetch.value?.result;
+
+const isSmallDevice = ref(false);
+
+onMounted(() => {
+  isSmallDevice.value = !(window.innerWidth >= 1024);
 })
+
+
 </script>
 
 <template>
-  <div>
-    <AppIntro />
+  <div class="home">
+    <!-- Landing -->
+    <section class="home-landing bg-black w-full -mt-[80px] relative">
+      <img v-if="!isSmallDevice" class="absolute w-full h-auto left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 hidden lg:block lg:max-w-[950px] xl:max-w-[1200px] 2xl:max-w-[1600px]" src="~/assets/icons/maison_home.png" alt="Home - Compagnie Vol Plané" />
+      <img class="absolute w-[80%] lg:w-[20%] max-w-[550px] h-auto top-1/2 lg:top-20 left-5 lg:left-auto lg:right-20 -translate-y-1/2 lg:translate-y-0" src="~/assets/icons/words.png" alt="Création, Expérimentation, Transmission - Compagnie Vol Plané" />
+      <!-- <NuxtLink
+        v-if="!isSmallDevice"
+        :to="`/company`"
+        :aria-current="
+          route.path.startsWith(`/company`) ? 'page' : undefined
+        "
+        class="w-36 2xl:w-80 h-40 absolute left-[32%] top-[32%] cursor-pointer pulse cursor-pointer transition-all hidden lg:block">
+        <img class="absolute w-[200px] h-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/icons/arrow-yellow.png" alt="Compagnie Vol Plané" />
+      </NuxtLink>
+      <NuxtLink
+        v-if="!isSmallDevice"
+        :to="`/school`"
+        :aria-current="
+          route.path.startsWith(`/company`) ? 'page' : undefined
+        "
+        class="w-36 2xl:w-80 h-40 absolute right-[22%] top-[40%] 2xl:top-[55%] cursor-pointer pulse cursor-pointer transition-all hidden lg:block">
+        <img class="absolute w-[200px] h-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="~/assets/icons/arrow-white.png" alt="L'échapée belle Théâtre école"/>
+      </NuxtLink> -->
+    </section>
+    <!-- Landing -->
+    
+    <AppHeader />
+    <!-- Calendrier-->
+    <section v-if="site.calendar[Object.keys(site.calendar)[0]]" class="my-20">
+      <header class="container">
+        <h2 class="fancy-title text-3xl uppercase font-bold mb-7 pr-7 inline-block">À venir</h2>
+      </header>
+      <div class="bg-vp--secondary text-white py-10 mb-px">
+        <div class="container">
+          <ul>
+            <AppCalendarLine v-for="(date, index) in site.calendar[Object.keys(site.calendar)[0]]" :key="index" :date="date" />
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- / Calendrier -->
 
-    <ul class="home-grid">
-      <li v-for="(album, index) in photographyData?.result ?? []" :key="index">
-        <NuxtLink :to="`/${album.id}`">
-          <figure>
-            <img
-              :src="
-                album?.cover?.resized?.url ?? album?.images?.[0]?.resized?.url
-              "
-              :alt="album?.cover?.alt ?? album?.images?.[0]?.alt"
-            />
-            <figcaption>
-              <span>
-                <span class="example-name">{{ album.title }}</span>
-              </span>
-            </figcaption>
-          </figure>
-        </NuxtLink>
-      </li>
-    </ul>
+    <!-- Dernier Spectacle -->
+    <section class="container">
+      <div class="grid lg:grid-cols-2 gap-y-5 lg:gap-y-0 gap-x-20 mb-20 relative">
+         <AppEventThumbnail v-for="show in page?.showFocus" :key="show.uid" :event="show" />
+        <NuxtLink
+        to="/repertoire"
+        :aria-current="
+          route.path.startsWith(`/repertoire`) ? 'page' : undefined
+        "
+        class="block w-32 h-32 lg:w-40 lg:h-40 absolute -top-[25px] lg:-top-[65px] right-16 -translate-y-1/2 animate-rotate z-50">
+        <AppRepertoireSVG />
+      </NuxtLink>
+      </div>
+    </section>
+    <!-- Dernier Spectacle -->
+
+    <!-- Parcours -->
+    <section v-if="page?.courses.length" class="bg-vp--main reverse pb-2.5 lg:pb-0">
+      <div class="container ">
+        <header class="py-10 lg:pt-20 lg:flex justify-between">
+          <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block fancy-dark">Focus sur les parcours</h2>
+           <NuxtLink to="/school/courses" class="block my-auto flex">
+            <span class="text-xl my-auto pr-2.5 font-bold">Tous les parcours</span>
+            <img class="w-32 my-auto" src="~/assets/icons/arrow-dark.png" alt="Tous les articles - Vol Plané">
+          </NuxtLink>
+        </header>
+        <div class="grid lg:grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-20 mb-20">
+          <AppArticleThumbnail v-for="article in page?.courses" :key="article.uid" :article="article" :categories="page?.categories" />
+        </div>
+      </div>
+    </section>
+    <!-- Parcours -->
+
+    <!-- Journal -->
+    <section v-if="page?.blogFocus.length">
+      <div class="container">
+        <header class="py-10 lg:pt-20 lg:flex justify-between">
+          <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block">Journal</h2>
+          <NuxtLink to="/blog" class="block my-auto flex">
+            <span class="text-xl my-auto pr-2.5 font-bold">Tous les articles</span>
+            <img class="w-32 my-auto" src="~/assets/icons/arrow-yellow.png" alt="Tous les articles - Vol Plané">
+          </NuxtLink>
+        </header>
+        <div class="grid lg:grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-20 mb-20">
+          <AppArticleThumbnail v-for="article in page?.blogFocus" :key="article.uid" :article="article" :categories="page?.categories" />
+        </div>
+      </div>
+    </section>
+    <!-- Journal -->
+
   </div>
 </template>
 
 <style scoped>
-.home-grid {
-  display: grid;
-  list-style: none;
-  grid-gap: 1.5rem;
-  line-height: 0;
-  grid-template-columns: repeat(1, 1fr);
-  grid-auto-flow: dense;
-}
-.home-grid li {
-  position: relative;
-  --cols: 1;
-  --rows: 1;
-
-  overflow: hidden;
-  background: #000;
-  line-height: 0;
-}
-.home-grid li:first-child {
-  --cols: 2;
-  --rows: 2;
-}
-.home-grid li:nth-child(5) {
-  --cols: 2;
-}
-.home-grid li:nth-child(6) {
-  --rows: 2;
-}
-.home-grid li:nth-child(7) {
-  --cols: 2;
-}
-.home-grid a {
-  display: block;
-  height: 10rem;
-}
-.home-grid img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: all 0.3s;
-}
-.home-grid figcaption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  color: #fff;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  line-height: 1;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+@media (pointer: none) {
+  .home-landing{
+    height: calc(66vh - 120px);
+  }
 }
 
-@media screen and (min-width: 45em) {
-  .home-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .home-grid li {
-    grid-column-start: span var(--cols);
-    grid-row-start: span var(--rows);
-  }
-  .home-grid a {
-    padding-bottom: 52.65%;
+.home-landing{
+  height: calc(100vh - 90px);
+}
+
+@media screen and (min-width: 1200px){
+  .home-landing{
+    height: calc(100vh - 90px);
   }
 }
 </style>

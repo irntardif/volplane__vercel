@@ -14,6 +14,7 @@ export default await antfu(
       'vue/html-indent': 'off',
       'vue/html-self-closing': 'off',
       'vue/singleline-html-element-content-newline': 'off',
+      'vue/multiline-html-element-content-newline': 'off',
     },
   },
 )

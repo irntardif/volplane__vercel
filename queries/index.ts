@@ -1,3 +1,5 @@
+export * from './blog'
 export * from './notes'
 export * from './page'
+export * from './repertoire'
 export * from './site'
