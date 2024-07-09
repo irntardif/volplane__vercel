@@ -16,7 +16,7 @@ const getPath = (uid) => {
   }
   const ar = uid.split('/');
   const fullPath = ar.slice(1).join('/');
-  return `blog/${  fullPath}`;
+  return `blog/${fullPath}`;
 }
 </script>
 
@@ -24,8 +24,7 @@ const getPath = (uid) => {
   <nav class="repertoire-prevnext">
     <div class="flex justify-between p-5 lg:px-20 py-10">
       <div class="w-1/2">
-        <NuxtLink
-v-if="pageIndex !== undefined && pageIndex > 0" 
+        <NuxtLink v-if="pageIndex !== undefined && pageIndex > 0" 
             :to="`/${getPath(children[pageIndex - 1]?.id)}`"
             :aria-current="
           route.path.startsWith(`/${children[pageIndex - 1]?.id}`) ? 'page' : undefined
@@ -36,8 +35,7 @@ v-if="pageIndex !== undefined && pageIndex > 0"
       </div>
       
       <div class="w-1/2">
-          <NuxtLink
-v-if="pageIndex !== undefined && pageIndex < children.length - 1"
+          <NuxtLink v-if="pageIndex !== undefined && pageIndex < children.length - 1"
          :to="`/${getPath(children[pageIndex + 1]?.id)}`"
          :aria-current="
           route.path.startsWith(`/${children[pageIndex + 1]?.id}`) ? 'page' : undefined"

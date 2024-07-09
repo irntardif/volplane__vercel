@@ -137,7 +137,7 @@ const breadcrumb = [
     <section v-if="page?.gallery.length" class="h-[66vh] relative lg:my-10 p-5 lg:pr-0 lg:pl-20">
       <AppCarousel :images="page?.gallery" />
     </section>
-    <LazyAppBlogPrevNext />
+    <AppBlogPrevNext />
   </div>
 </template>
 
