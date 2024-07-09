@@ -107,7 +107,7 @@ const menu = {
     </section>
     <section id="find-us" ref="findView" class="container grid grid-cols-1 lg:grid-cols-3 lg:my-32 gap-10 lg:mb-80">
       <header class="col-span-3">
-        <h2 class="fancy-title text-xl lg:text-3xl uppercase font-bold mb-2.5 lg:mb-7 inline-block">Nous trouver</h2>
+        <h2 class="fancy-title text-xl lg:text-3xl uppercase font-bold mb-2.5 lg:mb-7 inline-block">Nous trouver : </h2>
       </header>
       <div class="col-span-3 lg:col-span-2 relative -mt-12 mb-[450px] lg:mb-[0]">
          <MapboxMap
