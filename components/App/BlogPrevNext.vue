@@ -33,7 +33,6 @@ const getPath = (uid) => {
           <span class="ml-2.5 md:ml-5 hidden md:block my-auto text-sm md:text-lg font-bold">{{ children[pageIndex - 1]?.title }}</span>
         </NuxtLink>
       </div>
-      
       <div class="w-1/2">
           <NuxtLink v-if="pageIndex !== undefined && pageIndex < children.length - 1"
          :to="`/${getPath(children[pageIndex + 1]?.id)}`"
