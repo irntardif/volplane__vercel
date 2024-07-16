@@ -78,7 +78,7 @@ const infosMenu = [
       </div>
 
       <div class="col-span-6 md:col-span-3 lg:col-span-2">
-        <h2 v-if="site.newsletter" class="uppercase font-bold"><a :href="site.newsletter" target="_blank">Newsletter</a></h2>
+        <NuxtLink to="/newsletter"><h2 class="uppercase font-bold">Newsletter</h2></NuxtLink>
       </div>
     </div>
 
