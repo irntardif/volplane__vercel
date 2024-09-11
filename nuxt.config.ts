@@ -28,7 +28,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     // this page will be generated on demand and then cached permanently
-    '/': { isr: true },
+    '/': { isr: 60 },
   },
 
   tailwindcss: {
