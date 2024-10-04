@@ -86,11 +86,11 @@ const { data } = await useKql({
   },
 })
 
-// const getCurrentMonth = () => {
-//   const date = new Date();
-//   const month = date.toLocaleString("default", { month: "long" });
-//   return month.charAt(0).toUpperCase() + month.slice(1);
-// }
+const getCurrentMonth = () => {
+  const date = new Date();
+  const month = date.toLocaleString("default", { month: "long" });
+  return month.charAt(0).toUpperCase() + month.slice(1);
+}
 
 // Set the current page data for the global page context
 const page = data.value?.result
@@ -125,7 +125,7 @@ setPage(page)
 const isSmallDevice = ref(false);
 
 onMounted(() => {
-  isSmallDevice.value = !(window.innerWidth >= 1024);
+  isSmallDevice.value = window.innerWidth >= 1024 ? false : true;
 })
 
 
@@ -135,7 +135,7 @@ onMounted(() => {
   <div class="home">
     <!-- Landing -->
     <section class="home-landing bg-black w-full -mt-[80px] relative">
-      <img v-if="!isSmallDevice" class="absolute w-full h-auto left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 hidden lg:block lg:max-w-[950px] xl:max-w-[1200px] 2xl:max-w-[1600px]" src="~/assets/icons/maison_home.png" alt="Home - Compagnie Vol Plané" />
+      <img v-if="!isSmallDevice" class="absolute w-full h-auto left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 hidden lg:block lg:max-w-[950px] xl:max-w-[1200px] 2xl:max-w-[1600px]" src="~/assets/icons/maison_home.png" alt="Home - Compagnie Vol Plané"/>
       <img class="absolute w-[80%] lg:w-[20%] max-w-[550px] h-auto top-1/2 lg:top-20 left-5 lg:left-auto lg:right-20 -translate-y-1/2 lg:translate-y-0" src="~/assets/icons/words.png" alt="Création, Expérimentation, Transmission - Compagnie Vol Plané" />
       <!-- <NuxtLink
         v-if="!isSmallDevice"
@@ -158,63 +158,30 @@ onMounted(() => {
     </section>
     <!-- Landing -->
     
-    <AppHeader />
+    <AppHeader/>
     <!-- Calendrier-->
-    <section v-if="site.calendar[Object.keys(site.calendar)[0]]" class="my-20">
+    <section v-if="site.calendar[Object.keys(site.calendar)[0]]" class="mt-20">
       <header class="container">
         <h2 class="fancy-title text-3xl uppercase font-bold mb-7 pr-7 inline-block">À venir</h2>
       </header>
       <div class="bg-vp--secondary text-white py-10 mb-px">
         <div class="container">
           <ul>
-            <AppCalendarLine v-for="(date, index) in site.calendar[Object.keys(site.calendar)[0]]" :key="index" :date="date" />
+            <AppCalendarLine v-for="(date, index) in site.calendar[Object.keys(site.calendar)[0]]" :key="index" :date="date"/>
           </ul>
         </div>
       </div>
     </section>
     <!-- / Calendrier -->
 
-    <!-- Dernier Spectacle -->
-    <section class="container">
-      <div class="grid lg:grid-cols-2 gap-y-5 lg:gap-y-0 gap-x-20 mb-20 relative">
-         <AppEventThumbnail v-for="show in page?.showFocus" :key="show.uid" :event="show" />
-        <NuxtLink
-        to="/repertoire"
-        :aria-current="
-          route.path.startsWith(`/repertoire`) ? 'page' : undefined
-        "
-        class="block w-32 h-32 lg:w-40 lg:h-40 absolute -top-[25px] lg:-top-[65px] right-16 -translate-y-1/2 animate-rotate z-50">
-        <AppRepertoireSVG />
-      </NuxtLink>
-      </div>
-    </section>
-    <!-- Dernier Spectacle -->
-
-    <!-- Parcours -->
-    <section v-if="page?.courses.length" class="bg-vp--main reverse pb-2.5 lg:pb-0">
-      <div class="container ">
-        <header class="py-10 lg:pt-20 lg:flex justify-between">
-          <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block fancy-dark">Focus sur les parcours</h2>
-           <NuxtLink to="/school/courses" class="block my-auto flex">
-            <span class="text-xl my-auto pr-2.5 font-bold">Tous les parcours</span>
-            <img class="w-32 my-auto" src="~/assets/icons/arrow-dark.png" alt="Tous les articles - Vol Plané">
-          </NuxtLink>
-        </header>
-        <div class="grid lg:grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-20 mb-20">
-          <AppArticleThumbnail v-for="article in page?.courses" :key="article.uid" :article="article" :categories="page?.categories" />
-        </div>
-      </div>
-    </section>
-    <!-- Parcours -->
-
     <!-- Journal -->
-    <section v-if="page?.blogFocus.length">
-      <div class="container">
-        <header class="py-10 lg:pt-20 lg:flex justify-between">
-          <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block">Journal</h2>
+    <section v-if="page?.blogFocus.length" class="bg-vp--main reverse pb-2.5 lg:pb-0">
+      <div class="container ">
+        <header class="py-4 lg:pt-20 lg:flex justify-between">
+          <h2 class="fancy-title fancy-dark text-3xl uppercase font-bold mb-7 inline-block">Journal</h2>
           <NuxtLink to="/blog" class="block my-auto flex">
             <span class="text-xl my-auto pr-2.5 font-bold">Tous les articles</span>
-            <img class="w-32 my-auto" src="~/assets/icons/arrow-yellow.png" alt="Tous les articles - Vol Plané">
+            <img class="w-32 my-auto" src="~/assets/icons/arrow-dark.png" alt="Tous les articles - Vol Plané">
           </NuxtLink>
         </header>
         <div class="grid lg:grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-20 mb-20">
@@ -223,6 +190,44 @@ onMounted(() => {
       </div>
     </section>
     <!-- Journal -->
+
+    <!-- Dernier Spectacle -->
+    <section class="container">
+      <header class="py-4 lg:pt-5 lg:flex justify-between">
+        <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block">Spectacles en tournée</h2>
+      </header>
+      <div class="grid lg:grid-cols-2 gap-y-5 lg:gap-y-0 gap-x-20 mb-20 relative">
+         <AppEventThumbnail v-for="show in page?.showFocus" :key="show.uid" :event="show" />
+        <NuxtLink
+        :to="`/repertoire`"
+        :aria-current="
+          route.path.startsWith(`/repertoire`) ? 'page' : undefined
+        "
+        class="block w-32 h-32 lg:w-40 lg:h-40 absolute -top-[25px] lg:-top-[65px] right-16 -translate-y-1/2 animate-rotate z-50">
+        <AppRepertoireSVG/>
+      </NuxtLink>
+      </div>
+    </section>
+    <!-- Dernier Spectacle -->
+
+    <!-- Parcours -->
+    <section v-if="page?.courses.length" class="bg-vp--main reverse pb-2.5 lg:pb-0">
+      <div class="container ">
+        <header class="py-4 lg:pt-20 lg:flex justify-between">
+          <h2 class="fancy-title text-3xl uppercase font-bold mb-7 inline-block fancy-dark">Focus sur les parcours</h2>
+           <NuxtLink to="/school/courses" class="block my-auto flex">
+            <span class="text-xl my-auto pr-2.5 font-bold">Tous les parcours</span>
+            <img class="w-32 my-auto" src="~/assets/icons/arrow-dark.png" alt="Tous les articles - Vol Plané">
+          </NuxtLink>
+        </header>
+        <div class="grid lg:grid-cols-2 gap-y-10 lg:gap-y-0 gap-x-20">
+          <AppArticleThumbnail v-for="article in page?.courses" :key="article.uid" :article="article" :categories="page?.categories" />
+        </div>
+      </div>
+    </section>
+    <!-- Parcours -->
+
+  
 
   </div>
 </template>
