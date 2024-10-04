@@ -17,6 +17,8 @@ defineProps<{
       <figure class="w-full h-full" :style="`width:${image.width}px`">
          <img 
           class="" 
+          v-zoom
+          :data-zoom-src="image.url"
           :srcset="image.srcset"
           :width="image.width"
           :height="image.height"
@@ -46,7 +48,6 @@ defineProps<{
 .images-swiper .swiper-slide {
   height: 100%;
   width:auto;
-  background:red;
 }
 
 

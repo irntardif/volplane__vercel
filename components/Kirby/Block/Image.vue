@@ -55,7 +55,9 @@ const figure = ref<HTMLElement | undefined>()
         :collection="images"
       >
         <img
-:src="image?.url" 
+          :src="image?.url" 
+          v-zoom
+          :data-zoom-src="image?.url"
           :alt="image?.alt" 
           :width="image?.width"
           :height="image?.height"
