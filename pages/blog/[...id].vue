@@ -128,8 +128,10 @@ const breadcrumb = [
         </div> -->
         <div v-if="page?.embeds.length" class="mt-20 px-5 lg:px-0">
           <div v-for="(embed, index) in page?.embeds" :key="index">
-            <figure v-if="embed.item" class="pb-[69%] relative h-0 overflow-hidden w-full" v-html="embed.item?.code"></figure>
-            <iframe v-if="embed.input && embed.input.includes('transistor')" width="100%" height="180" frameborder="no" scrolling="no" seamless :src="`https://share.transistor.fm/e/${transitorId(embed.input)}`"></iframe>
+            <!--{{embed.item}}-->
+            <figure v-if="embed.item?.code" class="video video-4_3 relative h-0 overflow-hidden w-full" v-html="embed.item?.code">
+            </figure>
+            <iframe v-if="embed.input && embed.input.includes('transistor')" width="900" height="900" frameborder="no" scrolling="no" seamless :src="`https://share.transistor.fm/e/${transitorId(embed.input)}`"></iframe>
           </div>
         </div>
       </div>

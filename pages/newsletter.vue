@@ -53,14 +53,14 @@ const breadcrumb = [
     <div class="bg-white">
       <div class="container">
         <div class="text-2xl text-center max-w-2xl m-auto my-10" v-html="page?.text"></div>
-        <iframe v-if="isMailjetLoaded" data-w-type="embedded" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://5sqp.mj.am/wgt/5sqp/xs6k/form?c=6d8f87f9" width="100%" style="height: 0;"></iframe>
+        <iframe id="newsletter" v-if="isMailjetLoaded" data-w-type="embedded" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://5sqp.mj.am/wgt/5sqp/xs6k/form?c=6d8f87f9" width="100%" style="height: 0;"></iframe>
       </div>
     </div>
   </div>
 </template>
 
 <style>
- iframe{
+ iframe#newsletter{
   outline:none;
   min-height: 700px;
  }

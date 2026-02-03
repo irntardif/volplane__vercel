@@ -202,7 +202,13 @@ h6 {
   padding-bottom: calc(100% / var(--w) * var(--h));
   background: var(--color-black);
 }
+
+.video-4_3{
+  padding-bottom: 56%;
+}
+
 .img img,
+.video-4_3 iframe,
 .video iframe {
   position: absolute;
   top: 0;
