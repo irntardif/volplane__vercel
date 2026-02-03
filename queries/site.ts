@@ -16,5 +16,7 @@ export const siteQuery: KirbyQuerySchema = {
     months: 'site.eventMonths.split',
     season: 'site.season',
     calendar: 'kirby.collection("program")',
+    footer_link: 'site.footer_link',
+    footer_label: 'site.footer_label'
   },
 }
